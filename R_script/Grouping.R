@@ -4,7 +4,7 @@ library(base)
 library(dplyr)
 library(readxl)
 library(animation)
-student_fall2019 <- read_excel("student_fall2019.xlsx")
+student_fall2019 <- read_excel("Raw Data/student_fall2019.xlsx")
 
 student_fall2019 %>% 
   group_by(USER_Gender) %>% 
