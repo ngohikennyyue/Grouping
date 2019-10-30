@@ -21,6 +21,7 @@ F_student <- student_fall2019 %>%
 
 set.seed(2345)
 kmeans.ani(M_student[16:17], 10)
+kmeans.ani(F_student[16:17], 10)
 kmeans(M_student[16:17], 10)$cluster
 M_student %>% mutate(subgroup = kmeans(M_student[16:17], 10)$cluster) %>% view()
-
+F_student %>% mutate(subgroup = kmeans(M_student[16:17], 10)$cluster) %>% view()
