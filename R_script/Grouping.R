@@ -2,6 +2,9 @@ library(tidyverse)
 library(dplyr)
 library(readxl)
 library(animation)
+library(factoextra)
+library(sp)
+library(SearchTrees)
 
 student_fall2019 <- read_excel("Raw Data/student_fall2019.xlsx")
 
@@ -24,18 +27,32 @@ kmeans.ani(M_student[16:17], 50)
 kmeans.ani(tile1[16:17], 10)
 kmeans.ani(F_student[16:17],10)
 
+# Male cluster plot
+Man1 <- kmeans(M_student[16:17], centers = 50, nstart = 25)
+fviz_cluster(Man1, geom = "point", data = M_student[16:17])
+
+# Female cluster plot
+Fem1 <- kmeans(F_student[16:17], centers = 50, nstart = 25)
+fviz_cluster(Fem1, geom = "point", data = F_student[16:17])
+
 # Divide the Male and Female in 50 groups and try to mix and match 
 M1 <- kmeans(M_student[16:17],50)
-M_student %>% 
-  mutate(subgroup = M1$cluster) %>% 
-  group_by(subgroup) %>% 
+M2 <- M_student %>% 
+  mutate(cluster = M1$cluster) %>% 
+  group_by(cluster) %>% 
   summarise(Avg_x = mean(X), Avg_y = mean(Y))
 
 F1 <- kmeans(F_student[16:17],50)
-F_student %>% 
-  mutate(subgroup = F1$cluster) %>% 
-  group_by(subgroup) %>% 
+F2 <- F_student %>% 
+  mutate(cluster = F1$cluster) %>% 
+  group_by(cluster) %>% 
   summarise(Avg_x = mean(X), Avg_y = mean(Y))
+## Find indices of the two nearest points in A to each of the points in B
+tree <- createTree(coordinates(M2))
+inds <- knnLookup(tree, newdat=coordinates(F2), k=1)
+
+plot(M2$Avg_x,M2$Avg_y, pch=1, cex=1.2)
+points(F2$Avg_x, F2$Avg_y, pch=20, cex=1.5)
 
 # 1st try
 M_student %>% 
