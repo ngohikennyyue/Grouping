@@ -1,5 +1,4 @@
 install.packages("caret")
-install.packages("caret", dependencies=c("Depends", "Suggests"))
 library(caret)
 data(iris)
 dataset <- iris
