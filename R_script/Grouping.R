@@ -40,19 +40,20 @@ M1 <- kmeans(M_student[16:17],50)
 M2 <- M_student %>% 
   mutate(cluster = M1$cluster) %>% 
   group_by(cluster) %>% 
-  summarise(Avg_x = mean(X), Avg_y = mean(Y))
+  summarise(x = mean(X), y = mean(Y))
 
 F1 <- kmeans(F_student[16:17],50)
 F2 <- F_student %>% 
   mutate(cluster = F1$cluster) %>% 
   group_by(cluster) %>% 
-  summarise(Avg_x = mean(X), Avg_y = mean(Y))
-## Find indices of the two nearest points in A to each of the points in B
-tree <- createTree(coordinates(M2))
-inds <- knnLookup(tree, newdat=coordinates(F2), k=1)
+  summarise(x = mean(X), y = mean(Y))
 
-plot(M2$Avg_x,M2$Avg_y, pch=1, cex=1.2)
-points(F2$Avg_x, F2$Avg_y, pch=20, cex=1.5)
+tree <- createTree(coordinates(M2))
+inds <- knnLookup(tree, newdat = coordinates(F2), k=1)
+
+plot(M2$x,M2$y, pch=1, cex=1.2)
+points(F2$x,F2$y, col=c("blue", "red", "green","red","blue","green"), pch=17, cex=1.5)
+points(M2[inds[1:50],], pch=12)
 
 # 1st try
 M_student %>% 
