@@ -1,12 +1,6 @@
-library(tidyverse)
-library(dplyr)
-library(readxl)
-library(animation)
-library(factoextra)
-library(sp)
-library(SearchTrees)
+pacman::p_load(tidyverse, dplyr, readxl, animation, factoextra, sp, SearchTrees)
 
-student_fall2019 <- read_excel("Raw Data/student_fall2019.xlsx")
+student_fall2019 <- read_excel("Raw Data/Fall2019.xlsx")
 
 student_fall2019 %>% 
   group_by(USER_Gender) %>% 
@@ -65,5 +59,7 @@ M_student %>%
   M_student %>% 
     mutate(subgroup = kmeans(M_student[16:17], 15)$cluster) %>%
     group_by(subgroup) %>% 
-    summarise( Avg_x = mean(X), Avg_y = mean(Y)) %>%  ggplot(aes(x = Avg_x, y = Avg_y)) +geom_point()
+    summarise( Avg_x = mean(X), Avg_y = mean(Y)) %>%  
+    ggplot(aes(x = Avg_x, y = Avg_y)) +
+    geom_point()
 F_student %>% mutate(subgroup = kmeans(M_student[16:17], 12)$cluster) %>% view()

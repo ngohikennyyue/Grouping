@@ -1,5 +1,5 @@
-pacman::p_load(tidyverse, maps)
-
+pacman::p_load(tidyverse, maps, readr)
+Fall2019 <- read_xlsx("Raw Data/Fall2019.xlsx")
 # Convert to radian
 as_radians = function(theta=0){
   return(theta * pi / 180)
