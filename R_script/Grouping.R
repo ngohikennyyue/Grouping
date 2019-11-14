@@ -62,4 +62,5 @@ M_student %>%
     summarise( Avg_x = mean(X), Avg_y = mean(Y)) %>%  
     ggplot(aes(x = Avg_x, y = Avg_y)) +
     geom_point()
+  
 F_student %>% mutate(subgroup = kmeans(M_student[16:17], 12)$cluster) %>% view()
