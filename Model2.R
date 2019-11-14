@@ -1,4 +1,4 @@
-pacman::p_load(tidyverse, dplyr, readxl, sf,raster)
+pacman::p_load(tidyverse, dplyr, readxl, sf, raster)
 # Read in files
 student_fall2019 <- read_excel("Raw Data/Fall2019.xlsx")
 
